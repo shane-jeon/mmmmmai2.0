@@ -1,72 +1,68 @@
-"use client";
-import { useState } from "react";
+import React, { useState } from "react";
 
+// Define the API response structure
 interface RecipeResponse {
-  recipe: string; // Defines the structure of the API response
+  recipe?: string;
+  error?: string;
 }
 
-export default function GenerateRecipe() {
-  const [prompt, setPrompt] = useState("");
-  const [recipe, setRecipe] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+// Define the props for the Form component
+interface FormProps {
+  setRecipe: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const handleGenerateRecipe = async () => {
-    if (!prompt) {
-      setError("Please enter some ingredients or a recipe idea.");
-      return;
-    }
+const Form = ({ setRecipe, setError, setLoading }: FormProps) => {
+  const [ingredients, setIngredients] = useState<string>("");
 
-    setLoading(true);
+  // Handle the form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Clear previous errors and recipe
     setError("");
     setRecipe("");
+    setLoading(true);
 
     try {
-      const response = await fetch("/api/generate-recipe", {
+      const response = await fetch("/api/recipe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ word: ingredients }), // Send the ingredients
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to generate recipe");
-      }
-
-      // Tell TypeScript that the response conforms to the RecipeResponse type
+      // Explicitly type the data as RecipeResponse
       const data: RecipeResponse = await response.json();
-      setRecipe(data.recipe); // Set the recipe from the response
+
+      if (response.ok) {
+        setRecipe(data.recipe || "No recipe generated.");
+      } else {
+        setError(data.error || "Failed to generate recipe.");
+      }
     } catch (error) {
-      console.error("Error generating recipe:", error);
-      setError("Error generating recipe");
+      console.error("Error submitting form:", error);
+      setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h1>Generate the Worst Recipe</h1>
-
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="ingredients">Ingredients:</label>
       <input
         type="text"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="Enter ingredients or a recipe idea"
+        id="ingredients"
+        value={ingredients}
+        onChange={(e) => setIngredients(e.target.value)}
+        placeholder="Enter ingredients separated by commas"
       />
-      <button onClick={handleGenerateRecipe} disabled={loading}>
-        {loading ? "Generating..." : "Generate Recipe"}
-      </button>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {recipe && (
-        <div>
-          <h2>Generated Recipe:</h2>
-          <p>{recipe}</p>
-        </div>
-      )}
-    </div>
+      <button type="submit">Generate Recipe</button>
+    </form>
   );
-}
+};
+
+export default Form;
