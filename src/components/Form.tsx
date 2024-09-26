@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import the Player from Lottie
+const LottiePlayer = dynamic(
+  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+  { ssr: false }
+);
 
 // Define the API response structure
 interface RecipeResponse {
@@ -12,9 +19,16 @@ interface FormProps {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   setError: React.Dispatch<React.SetStateAction<string>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading?: boolean; // Make loading optional
 }
 
-const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
+const Form = ({
+  setRecipe,
+  setImage,
+  setError,
+  setLoading,
+  loading = false,
+}: FormProps) => {
   const [ingredients, setIngredients] = useState<string>("");
 
   // Handle the form submission
@@ -23,7 +37,7 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
     setError("");
     setRecipe("");
     setImage(""); // Clear previous image
-    setLoading(true);
+    setLoading(true); // Start loading animation
 
     try {
       // Step 1: Get the recipe from /api/recipe
@@ -35,12 +49,11 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
         body: JSON.stringify({ word: ingredients }),
       });
 
-      // Safely cast the response to the expected type (RecipeResponse)
       const recipeData: RecipeResponse = await recipeResponse.json();
 
       if (!recipeResponse.ok) {
         setError(recipeData.error || "Failed to generate recipe");
-        setLoading(false);
+        setLoading(false); // Stop loading animation
         return;
       }
 
@@ -48,11 +61,13 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
       setRecipe(generatedRecipe);
 
       // Step 2: Use the generated recipe to call /generated_image API
-      const imageResponse = await fetch(`/api/generated_image?recipe=${encodeURIComponent(generatedRecipe)}`);
+      const imageResponse = await fetch(
+        `/api/generated_image?recipe=${encodeURIComponent(generatedRecipe)}`
+      );
 
       if (!imageResponse.ok) {
         setError("Failed to generate image");
-        setLoading(false);
+        setLoading(false); // Stop loading animation
         return;
       }
 
@@ -63,22 +78,35 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
       console.error("Error:", error);
       setError("An error occurred. Please try again.");
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading animation when done
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="ingredients">Ingredients:</label>
-      <input
-        type="text"
-        id="ingredients"
-        value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
-        placeholder="Enter ingredients separated by commas"
-      />
-      <button type="submit">Generate Recipe and Image</button>
-    </form>
+    <div>
+      {/* Form to submit ingredients */}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="ingredients">Ingredients:</label>
+        <input
+          type="text"
+          id="ingredients"
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+          placeholder="Enter ingredients separated by commas"
+        />
+        <button type="submit">Generate Recipe and Image</button>
+      </form>
+
+      {/* Show Lottie animation during loading */}
+      {loading && (
+        <LottiePlayer
+          autoplay
+          loop
+          src="/loadanimation.json" // Assuming the JSON is in the public folder
+          style={{ height: "150px", width: "150px" }}
+        />
+      )}
+    </div>
   );
 };
 
