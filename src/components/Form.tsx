@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
-
-// Dynamically import the Player from Lottie
-const LottiePlayer = dynamic(
-  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
-  { ssr: false }
-);
 
 // Define the API response structure
 interface RecipeResponse {
@@ -19,16 +12,9 @@ interface FormProps {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   setError: React.Dispatch<React.SetStateAction<string>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  loading?: boolean; // Make loading optional
 }
 
-const Form = ({
-  setRecipe,
-  setImage,
-  setError,
-  setLoading,
-  loading = false,
-}: FormProps) => {
+const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
   const [ingredients, setIngredients] = useState<string>("");
 
   // Handle the form submission
@@ -74,6 +60,9 @@ const Form = ({
       const imageBlob = await imageResponse.blob();
       const imageUrl = URL.createObjectURL(imageBlob);
       setImage(imageUrl); // Set the image URL for display in Results
+
+      // Clear the input after submission
+      setIngredients(""); // Reset the input field
     } catch (error) {
       console.error("Error:", error);
       setError("An error occurred. Please try again.");
@@ -83,29 +72,27 @@ const Form = ({
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {/* Form to submit ingredients */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="ingredients">Ingredients:</label>
-        <input
-          type="text"
-          id="ingredients"
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
-          placeholder="Enter ingredients separated by commas"
-        />
-        <button type="submit">Generate Recipe and Image</button>
+      <form onSubmit={handleSubmit} className="w-full max-w-md">
+        <label htmlFor="ingredients" className="mb-4 block text-left text-xl">
+          What ingredients do you have?:
+        </label>
+        <div className="mb-4 flex flex-col items-center font-poppins">
+          <textarea
+            id="ingredients"
+            value={ingredients}
+            onChange={(e) => setIngredients(e.target.value)}
+            placeholder="Milk, eggs, flour, sugar..."
+            className="placeholder-top-left mb-4 h-72 w-full rounded-md border-2 border-[#818181] p-2"
+          />
+          <button
+            type="submit"
+            className="w-full rounded bg-[#00464B] px-4 py-4 text-white hover:bg-blue-700">
+            <p className="font-poppins text-2xl">Generate</p>
+          </button>
+        </div>
       </form>
-
-      {/* Show Lottie animation during loading */}
-      {loading && (
-        <LottiePlayer
-          autoplay
-          loop
-          src="/loadanimation.json" // Assuming the JSON is in the public folder
-          style={{ height: "150px", width: "150px" }}
-        />
-      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.1.0",
     "@lottiefiles/react-lottie-player": "^3.5.4",
     "fetch-event-stream": "^0.1.5",
     "hono": "^4.6.3",
