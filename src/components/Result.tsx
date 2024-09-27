@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 // Dynamically import the Player from Lottie
 const LottiePlayer = dynamic(
@@ -69,10 +70,16 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
         <>
           <h2 className="mb-6 text-3xl">Recipe</h2>
           <div className="mx-auto flex h-[420px] w-[420px] items-center justify-center rounded-lg border-2 border-gray-300 bg-white p-4">
-            <img
+            {/* <img
               src={image}
               alt="Generated recipe"
               className="h-[400px] w-[400px] rounded-md object-contain"
+            /> */}
+            <Image
+              src={image}
+              alt="Generated recipe"
+              width={400}
+              height={400}
             />
           </div>
         </>
@@ -108,6 +115,10 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
               <li key={index}>{instruction.trim()}</li>
             ))}
           </ol>
+          <p className="py-6">
+            * Please note there may be errors in rendering. If recipe does not
+            appear, please try again.
+          </p>
         </div>
       )}
     </div>

@@ -99,7 +99,7 @@ const About = () => {
       <div className="mx-6">
         <div className="mx-4 mt-8 lg:mx-52 lg:mt-16">
           <h1 className="mb-10 font-sans text-3xl lg:text-4xl">
-            MMMMMMai - The "tastiest" result of useless fun and
+            MMMMMMai - &quot;tastiest&quot; result of useless fun and
             cross-collaboration
           </h1>
           <Image
@@ -111,7 +111,7 @@ const About = () => {
           />
           <div className="mb-4 lg:mb-10">
             <h2 className="pb-2 text-2xl lg:text-3xl">
-              The Origins of MMMMMMai
+              The Origins of MMMMMMai 🥦
             </h2>
             <div className="text-lg lg:text-xl">
               {aboutParagraphs.map((paragraph, index) => (
@@ -123,7 +123,7 @@ const About = () => {
           </div>
 
           <div className="mb-4 lg:mb-10">
-            <h2 className="pb-2 text-2xl lg:text-3xl">How We Built It</h2>
+            <h2 className="pb-2 text-2xl lg:text-3xl">How We Built It 💻</h2>
             <div className="text-lg lg:text-xl">
               {techParagraphs.map((paragraph, index) => (
                 <div key={index} className="pb-3">
@@ -147,7 +147,7 @@ const About = () => {
 
         <div className="mx-auto w-full flex-col items-center rounded-md border-4 border-[#00464B] p-8 lg:w-2/4 lg:px-20 lg:py-12">
           <h2 className="pb-8 text-center text-4xl lg:text-5xl">
-            Meet the Team Members of PinkPonyClub
+            Meet the Team Members of PinkPonyClub 👋
           </h2>
 
           <div className="pb-12">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +13,14 @@ const Header = () => {
     <header className="p-8">
       <div className="flex items-center justify-between px-8">
         <Link href="/">
-          <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" />
+          {/* <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" /> */}
+          <Image
+            src="/Logo.svg"
+            alt="Logo"
+            className="w-40 sm:w-40 md:w-80 lg:w-80"
+            width={160} // Corresponds to `w-40` for mobile
+            height={40}
+          />
         </Link>
 
         {/* Hamburger Menu Button for mobile */}
