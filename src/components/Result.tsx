@@ -64,7 +64,7 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
     parseRecipe(recipe);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center border-2 border-blue-700 px-5">
+    <div className="flex h-screen flex-col items-center justify-center px-5">
       {image && (
         <>
           <h2 className="mb-6 text-3xl">Recipe</h2>
