@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/recipe/index": {
+      "maxDuration": 60
+    },
+    "api/generated_image/index": {
+      "maxDuration": 60
+    }
+  }
+}
