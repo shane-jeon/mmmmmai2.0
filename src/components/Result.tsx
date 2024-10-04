@@ -40,7 +40,7 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
   // Handle loading state with Lottie animation
   if (loading) {
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center border-2 border-green-900">
         <div className="flex h-72 w-72 items-center justify-center">
           <LottiePlayer
             autoplay
@@ -49,7 +49,7 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
             style={{ height: "400px", width: "400px" }}
           />
         </div>
-        <p className="text-xl">
+        <p className="text-center text-xl lg:text-2xl">
           Whipping up your culinary disaster... please wait!
         </p>
       </div>
@@ -65,21 +65,17 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
     parseRecipe(recipe);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center px-5">
+    <div className="mx-2">
       {image && (
         <>
-          <h2 className="mb-6 text-3xl">Recipe</h2>
-          <div className="mx-auto flex h-[420px] w-[420px] items-center justify-center rounded-lg border-2 border-gray-300 bg-white p-4">
-            {/* <img
-              src={image}
-              alt="Generated recipe"
-              className="h-[400px] w-[400px] rounded-md object-contain"
-            /> */}
+          <h2 className="my-4 text-center text-3xl lg:my-6">Recipe</h2>
+          <div className="mx-2 lg:flex lg:justify-center">
             <Image
               src={image}
               alt="Generated recipe"
               width={400}
               height={400}
+              className="rounded-lg"
             />
           </div>
         </>
@@ -87,38 +83,46 @@ const Result = ({ recipe, image, error, loading }: ResultProps) => {
 
       {/* Recipe Details */}
       {recipe && (
-        <div className="mt-5 h-80 w-full overflow-auto px-12 py-8 font-serif">
-          <h2 className="text-3xl font-bold">{title}</h2>
-          <p className="mt-2 text-xl italic">{firstSentence}</p>
+        <div className="pt-6">
+          <div className="">
+            <h2 className="text-center text-xl font-medium lg:text-4xl lg:tracking-wide">
+              {title}
+            </h2>
+            <p className="pt-2 text-xl italic">{firstSentence}</p>
 
-          {/* Ingredients */}
-          <h3 className="mt-5 text-left font-serif text-2xl font-semibold">
-            Ingredients:
-          </h3>
-          <ul className="mt-3 list-inside list-disc text-left">
-            {ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient.trim()}</li>
-            ))}
-          </ul>
+            <h3 className="ml-2 font-serif text-xl font-semibold lg:text-2xl">
+              Ingredients:
+            </h3>
+            <ul className="ml-2 mt-1 list-inside list-disc text-left">
+              {ingredients.map((ingredient, index) => (
+                <li key={index} className="lg:text-lg">
+                  {ingredient.trim()}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Divider */}
           {ingredients.length > 0 && instructions.length > 0 && (
             <div className="my-4 w-full border-t-2 border-gray-300"></div>
           )}
-
-          {/* Instructions */}
-          <h3 className="mt-5 text-left font-serif text-2xl font-semibold">
-            Instructions:
-          </h3>
-          <ol className="mt-3 list-inside text-left">
-            {instructions.map((instruction, index) => (
-              <li key={index}>{instruction.trim()}</li>
-            ))}
-          </ol>
-          <p className="py-6">
-            * Please note there may be errors in rendering. If recipe does not
-            appear, please try again.
-          </p>
+          <div className="">
+            {/* Instructions */}
+            <h3 className="ml-2 mt-5 text-left font-serif text-xl font-semibold lg:mb-4 lg:text-2xl">
+              Instructions:
+            </h3>
+            <ol className="mx-2 list-inside">
+              {instructions.map((instruction, index) => (
+                <li key={index} className="mb-1 lg:mb-3 lg:text-lg">
+                  {instruction.trim()}
+                </li>
+              ))}
+            </ol>
+            <p className="font- py-6 text-center italic">
+              * Please note there may be errors in rendering. If recipe does not
+              appear, please try again.
+            </p>
+          </div>
         </div>
       )}
     </div>

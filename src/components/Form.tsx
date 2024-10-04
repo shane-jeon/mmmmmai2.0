@@ -72,7 +72,7 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="mx-4 flex flex-col items-center lg:mx-0">
       {/* Form to submit ingredients */}
       <form onSubmit={handleSubmit} className="w-full max-w-md">
         <label htmlFor="ingredients" className="mb-4 block text-left text-xl">
@@ -83,7 +83,7 @@ const Form = ({ setRecipe, setImage, setError, setLoading }: FormProps) => {
             id="ingredients"
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
-            placeholder="Milk, eggs, flour, sugar..."
+            placeholder="Milk, eggs, asparagus, olives, anchovies..."
             className="placeholder-top-left mb-4 h-72 w-full rounded-md border-2 border-[#818181] p-2"
           />
           <button

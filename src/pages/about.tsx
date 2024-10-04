@@ -94,7 +94,7 @@ const About = () => {
   ];
 
   return (
-    <div className="mb-20">
+    <div className="mb-20 border-2 border-purple-600">
       <Header />
       <div className="mx-6">
         <div className="mx-4 mt-8 lg:mx-52 lg:mt-16">

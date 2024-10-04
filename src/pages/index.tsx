@@ -10,11 +10,14 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(false); // Define loading state here
 
   return (
-    <div>
+    <div className="mx-3 md:mx-8">
       <Header />
-      <div className="flex min-h-screen flex-col justify-center p-5 md:flex-row">
-        <section id="left-section" className="w-full p-5 md:w-2/5">
-          <h1 className="mb-24 mt-14 text-center text-3xl">Instructions</h1>
+
+      <div className="flex flex-col lg:flex-row lg:justify-between">
+        <section id="left-section" className="lg:w-1/2">
+          <h1 className="my-8 text-center text-3xl lg:mb-14 lg:mt-14">
+            Instructions
+          </h1>
           <Form
             setRecipe={setRecipe}
             setImage={setImage}
@@ -22,9 +25,8 @@ const Home = () => {
             setLoading={setLoading}
           />
         </section>
-        <section
-          id="right-section"
-          className="w-full bg-[#F4F4F4] p-5 md:w-2/5">
+
+        <section id="right-section" className="lg:mx-16 lg:w-1/2">
           <Result
             recipe={recipe}
             image={image}

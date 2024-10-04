@@ -10,8 +10,9 @@ const Header = () => {
   };
 
   return (
-    <header className="p-8">
-      <div className="flex items-center justify-between px-8">
+    // <header className="border-4 border-black p-8">
+    <header className="py-6 lg:py-8">
+      <div className="mx-3 flex items-center justify-between lg:px-8">
         <Link href="/">
           {/* <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" /> */}
           <Image
@@ -50,12 +51,12 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="mt-4 lg:hidden">
+        <div className="mt-4 text-center lg:hidden">
           <p className="text-2xl">
             <Link
               href="/about"
               onClick={toggleMenu}
-              className="mb-2 block hover:underline">
+              className="mb-4 mt-6 block hover:underline">
               About
             </Link>
           </p>
