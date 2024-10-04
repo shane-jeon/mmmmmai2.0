@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     // <header className="border-4 border-black p-8">
-    <header className="pb-2 pt-6 lg:py-8">
+    <header className="pb-2 pt-6 lg:flex lg:items-center lg:justify-between lg:py-8">
       <div className="mx-3 flex hidden items-center justify-between lg:block lg:px-8">
         <Link href="/">
           {/* <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" /> */}
@@ -44,20 +44,19 @@ const Header = () => {
             ☰
           </button>
         </div>
-
-        {/* Desktop Links */}
-        <div className="hidden gap-8 lg:flex">
-          <p className="text-2xl">
-            <Link href="/about" className="hover:underline">
-              About
-            </Link>
-          </p>
-          <p className="text-2xl">
-            <Link href="/contact" className="leading-3 hover:underline">
-              Contact
-            </Link>
-          </p>
-        </div>
+      </div>
+      {/* Desktop Links */}
+      <div className="hidden gap-8 lg:block lg:flex lg:flex-row">
+        <p className="text-2xl">
+          <Link href="/about" className="hover:underline">
+            About
+          </Link>
+        </p>
+        <p className="text-2xl">
+          <Link href="/contact" className="leading-3 hover:underline">
+            Contact
+          </Link>
+        </p>
       </div>
 
       {/* Mobile Menu */}
