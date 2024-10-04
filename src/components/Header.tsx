@@ -11,8 +11,8 @@ const Header = () => {
 
   return (
     // <header className="border-4 border-black p-8">
-    <header className="py-6 lg:py-8">
-      <div className="mx-3 flex items-center justify-between lg:px-8">
+    <header className="pb-2 pt-6 lg:py-8">
+      <div className="mx-3 flex hidden items-center justify-between lg:block lg:px-8">
         <Link href="/">
           {/* <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" /> */}
           <Image
@@ -23,7 +23,18 @@ const Header = () => {
             height={40}
           />
         </Link>
-
+      </div>
+      <div className="mx-4 flex items-center justify-between lg:hidden">
+        <Link href="/">
+          {/* <img src="/Logo.svg" alt="Logo" className="w-40 lg:w-80" /> */}
+          <Image
+            src="/broccoli.png"
+            alt="Logo"
+            className=""
+            width={60} // Corresponds to `w-40` for mobile
+            height={0}
+          />
+        </Link>
         {/* Hamburger Menu Button for mobile */}
         <div className="lg:hidden">
           <button
