@@ -87,7 +87,7 @@ const About = () => {
   ];
 
   return (
-    <div className="mx-4 border-2 border-purple-600 lg:mx-auto lg:mb-20">
+    <div className="mx-4 lg:mx-auto lg:mb-20">
       <Header />
       {/* <div className="mx-2 lg:mx-6"> */}
       <div className="">
@@ -97,7 +97,7 @@ const About = () => {
               MMMMMMai
             </h1> */}
             <Image
-              src="/logo.png"
+              src="/Logo.svg"
               alt="Useless Fun AI Build-A-Thon"
               width={200}
               height={0}
